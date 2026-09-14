@@ -1,39 +1,33 @@
 # Stage 1 — Understand
 
-Read `CHALLENGE.md` and produce a concise `INTENT.md`.
+Read:
 
-Extract:
+* `CHALLENGE.md`
+* `AGENTS.md`
 
-1. Goal
-2. Functional requirements
-3. Non-functional requirements
-4. Constraints
-5. Assumptions
-6. Acceptance criteria
-7. Ambiguities
+Your goal is to produce a validated, architecture-ready `INTENT.md`.
 
-## Rules
+## Process
 
-* Do not design the architecture.
-* Do not choose agents, frameworks, models, or tools.
-* Do not start implementation.
-* Separate stated requirements from assumptions.
-* Make acceptance criteria concrete and testable.
-* If the challenge is ambiguous, make reasonable assumptions rather than blocking indefinitely.
-* Keep the document concise enough to review quickly during an interview.
+1. Apply the `intent-generation` skill to `CHALLENGE.md`.
+2. Create a draft `INTENT.md`.
+3. Apply the `intent-review` skill using:
+
+   * `CHALLENGE.md`
+   * the draft `INTENT.md`
+4. Fix any required issues identified by the review.
+5. Surface any ambiguity that requires a human decision.
+6. Produce the final `INTENT.md`.
+
+## Human Gate
+
+Present the final `INTENT.md` for human approval.
+
+Do not proceed to architecture until the user explicitly approves it.
 
 ## Output
 
-Create `INTENT.md` with these sections:
+`INTENT.md`
 
-* Goal
-* Functional Requirements
-* Non-Functional Requirements
-* Constraints
-* Assumptions
-* Acceptance Criteria
-* Ambiguities
+Stop after Stage 1.
 
-Target length: approximately 1 page.
-
-Stop after producing `INTENT.md`.

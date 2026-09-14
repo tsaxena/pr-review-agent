@@ -2,47 +2,39 @@
 
 Read:
 
-* `CHALLENGE.md`
-* `INTENT.md`
 * `DESIGN.md`
 * `AGENTS.md`
 
-Your goal is to convert the approved design into the smallest implementation plan that proves the system works end to end.
+Do not reread `ARCHITECTURE.md`, `INTENT.md`, or `CHALLENGE.md`.
 
-## Rules
+Treat the approved `DESIGN.md` as the authoritative handoff from Stage 3.
 
-* Do not redesign the architecture.
-* Do not expand scope.
-* Prioritize a working vertical slice over completeness.
-* Optimize for approximately 45 minutes of implementation time.
-* Implement P0 before P1.
-* Avoid infrastructure that is not necessary for the demo.
+## Goal
 
-## Step 1 — Define the Vertical Slice
+Produce a validated `IMPLEMENTATION_PLAN.md` for the smallest working vertical slice.
 
-Identify the minimum end-to-end path that proves the architecture.
+## Process
 
-Describe:
+1. Apply the `implementation-planning` skill to `DESIGN.md`.
+2. Create a draft `IMPLEMENTATION_PLAN.md`.
+3. Apply the `plan-review` skill using:
 
-* input
-* core reasoning step(s)
-* tool calls
-* state transitions
-* output
-* success condition
+   * `DESIGN.md`
+   * the draft `IMPLEMENTATION_PLAN.md`
+4. Fix required issues.
+5. Surface any issue that requires changing the approved design.
+6. Produce the final `IMPLEMENTATION_PLAN.md`.
 
-## Step 2 — Prioritize
+## Human Gate
 
-Create three buckets:
+Present the final implementation plan for human approval.
 
-### P0 — Required
+If planning reveals that the design must change, stop and return to Stage 3 rather than silently modifying it.
 
-Must work for the system to demonstrate the architecture.
+Do not begin implementation until the user approves the plan.
 
-### P1 — If Time Allows
+## Output
 
-Useful improvements that are not required for the core demo.
+`IMPLEMENTATION_PLAN.md`
 
-### Out of Scope
-
-Anything intent
+Stop after Stage 4.

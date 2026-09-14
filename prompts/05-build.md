@@ -2,85 +2,47 @@
 
 Read:
 
-* `CHALLENGE.md`
-* `INTENT.md`
-* `DESIGN.md`
 * `IMPLEMENTATION_PLAN.md`
 * `AGENTS.md`
 
-Your goal is to implement the approved P0 vertical slice.
+Do not reread `DESIGN.md`, `ARCHITECTURE.md`, `INTENT.md`, or `CHALLENGE.md`.
 
-## Rules
+Treat the approved `IMPLEMENTATION_PLAN.md` as the authoritative handoff from Stage 4.
 
-* Treat `INTENT.md`, `DESIGN.md`, and `IMPLEMENTATION_PLAN.md` as contracts.
-* Do not redesign the architecture.
-* Do not add unnecessary abstractions or infrastructure.
-* Implement P0 before P1.
-* Prefer small, working increments over large code generation.
-* Run and validate the system incrementally.
-* Fix blocking issues before adding features.
-* Keep the implementation easy to explain in an interview.
-* If the design appears fundamentally broken, stop and flag the issue rather than silently changing it.
+## Goal
 
-## Build Loop
+Implement and verify the P0 vertical slice.
 
-Repeat:
+## Process
 
-1. Select the next P0 item from `IMPLEMENTATION_PLAN.md`.
-2. Implement the smallest change needed.
-3. Run the relevant code or test.
-4. Inspect the actual result.
-5. Fix failures.
-6. Confirm the step works before moving on.
+1. Apply the `implementation-execution` skill.
+2. Execute P0 steps in the order defined by `IMPLEMENTATION_PLAN.md`.
+3. After each meaningful step, run the defined verification.
+4. If a step fails, apply the `debugging-loop` skill.
+5. Continue until the P0 end-to-end path works or a blocking upstream issue is discovered.
+6. Run the complete P0 vertical slice once more.
+7. Create `BUILD_SUMMARY.md`.
 
-Do not implement multiple major components without testing between them.
+## Boundaries
 
-## Implementation Priorities
+If implementation requires changing the approved plan or design:
 
-Prioritize:
+* stop
+* explain the conflict
+* return the decision to the appropriate earlier stage
 
-1. End-to-end execution
-2. Correct tool interfaces
-3. Explicit state
-4. Deterministic safety and validation gates
-5. Error handling for critical paths
-6. Basic observability
-7. Tests for core behavior
+Do not silently redesign.
 
-Avoid polishing non-critical code before the vertical slice works.
-
-## LLM-Generated Code
-
-Do not assume generated code is correct.
-
-After each meaningful implementation step, check:
-
-* Does it match `DESIGN.md`?
-* Does it satisfy the intended interface?
-* Does it introduce hidden assumptions?
-* Is the error path handled?
-* Can the result be verified?
-
-## Scope Control
-
-If time becomes constrained:
-
-* complete P0
-* defer P1
-* document remaining limitations
-* do not broaden scope
+Do not begin P1 work unless explicitly approved.
 
 ## Output
 
-Produce working code for the P0 vertical slice.
+Produce:
 
-Update tests as needed.
+* working P0 implementation
+* relevant tests
+* `BUILD_SUMMARY.md`
 
-When the vertical slice works, summarize:
+Do not perform the formal implementation review yet.
 
-* what was implemented
-* what was tested
-* what remains incomplete
-* any known limitations
-
-Stop after the implementation is working well enough to enter Stage 6 — Review.
+Stop after Stage 5.

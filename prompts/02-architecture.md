@@ -2,87 +2,64 @@
 
 Read:
 
-* `CHALLENGE.md`
 * `INTENT.md`
 * `AGENTS.md`
 
-Your goal is to identify the simplest architecture that satisfies the requirements.
+Do not reread `CHALLENGE.md`.
 
-## Step 1 — Characterize the Problem
+Treat the approved `INTENT.md` as the authoritative problem contract.
 
-Briefly assess:
+## Goal
 
-* How predictable is the workflow?
-* Is the task mostly deterministic or open-ended?
-* Is dynamic replanning required?
-* Are there independent tasks that benefit from parallel execution?
-* Is persistent or shared state required?
-* How many tools or external systems are involved?
-* Are any actions irreversible or high-risk?
-* What kinds of failures must the system recover from?
-* What is the expected latency / cost sensitivity?
-* What can realistically be implemented in the available interview time?
+Produce an approved `ARCHITECTURE.md` that selects the simplest architecture capable of satisfying the intent.
 
-## Step 2 — Generate Architecture Options
+## Process
 
-Propose 2–3 realistic architecture options.
+1. Apply the `architecture-analysis` skill to `INTENT.md`.
+2. Generate 2–3 realistic architecture options when useful.
+3. Compare them against:
 
-Consider patterns such as:
+   * requirements
+   * constraints
+   * acceptance criteria
+   * implementation feasibility
+4. Recommend one architecture.
+5. Present the recommendation and tradeoffs to the user.
+6. Wait for the user to make or approve the final architecture decision.
+7. Record the approved decision in `ARCHITECTURE.md`.
 
-* deterministic workflow
-* single ReAct agent
-* planner / executor
-* planner with replanning
-* router + specialist agents
-* supervisor / multi-agent
-* hybrid deterministic + agentic system
+## Human Gate
 
-Only include patterns that are genuinely relevant to this problem.
+The AI may recommend an architecture, but the human owns the final decision.
 
-For each option describe:
+Do not proceed to detailed design until the architecture is explicitly approved.
 
+## Output
+
+`ARCHITECTURE.md`
+
+The artifact should capture:
+
+* problem characteristics relevant to architecture
+* options considered
+* selected architecture
+* rationale and tradeoffs
 * high-level control flow
-* where LLM reasoning is used
-* where deterministic logic is used
-* state requirements
-* strengths
-* weaknesses
-* likely failure modes
-* implementation complexity
-* suitability for a 45-minute prototype
+* LLM vs deterministic boundary
+* architectural state requirements
+* key invariants
+* constraints carried forward
+* major risks
+* explicit human approval
 
-## Step 3 — Compare
+## Boundaries
 
-Compare the options against the requirements and acceptance criteria in `INTENT.md`.
+Do not:
 
-Prefer the simplest architecture that satisfies the requirements.
+* create detailed component or class designs
+* define implementation files
+* write code
+* silently change requirements from `INTENT.md`
+* proceed to Stage 3 without approval
 
-Do not introduce additional agents, planners, memory systems, frameworks, or infrastructure unless they solve a concrete requirement.
-
-## Step 4 — Recommend
-
-Recommend one architecture and explain why.
-
-Also state:
-
-* why the simpler alternative is insufficient, if applicable
-* why the more complex alternative is unnecessary, if applicable
-* the biggest risk in the recommended design
-
-## Human Decision Gate
-
-Do NOT make the final architecture decision on behalf of the user.
-
-End with:
-
-### Recommended Architecture
-
-<recommendation>
-
-### Decision Required
-
-Architecture selection must be explicitly approved by the user before proceeding to detailed design.
-
-Do not create `DESIGN.md`.
-Do not start implementation.
-Do not proceed to Stage 3.
+Stop after Stage 2.

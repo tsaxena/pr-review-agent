@@ -2,131 +2,42 @@
 
 Read:
 
-* `CHALLENGE.md`
-* `INTENT.md`
-* `DESIGN.md`
 * `IMPLEMENTATION_PLAN.md`
-* `AGENTS.md`
-* the current implementation
+* `BUILD_SUMMARY.md`
+* current implementation
 * existing tests
+* `AGENTS.md`
 
-Your goal is to determine whether the implementation actually satisfies the intended system design and acceptance criteria.
+Do not reread `DESIGN.md`, `ARCHITECTURE.md`, `INTENT.md`, or `CHALLENGE.md`.
 
-## Rules
+Treat `IMPLEMENTATION_PLAN.md` as the implementation contract and `BUILD_SUMMARY.md` as the record of what was built.
 
-* Review the implementation critically.
-* Do not assume generated code is correct because it runs.
-* Compare implementation against upstream artifacts.
-* Prefer targeted fixes over broad rewrites.
-* Distinguish correctness issues from style preferences.
-* Do not redesign the system unless there is a fundamental architectural flaw.
-* Do not expand scope beyond the challenge.
+## Goal
 
-## Step 1 — Check Requirements
+Determine whether the P0 implementation is correct and sufficiently tested to proceed to system-level evaluation.
 
-Verify each important acceptance criterion from `INTENT.md`.
+## Process
 
-For each criterion classify it as:
+1. Apply the `implementation-review` skill.
+2. Apply the `test-gap-analysis` skill.
+3. Identify only blockers that must be resolved before evaluation.
+4. Apply targeted fixes for approved blockers.
+5. Rerun the relevant focused tests.
+6. Repeat review only for the affected areas.
+7. Produce `REVIEW.md`.
 
-* PASS
-* PARTIAL
-* FAIL
-* NOT TESTED
+## Boundaries
 
-Provide evidence from the implementation or tests.
+Do not:
 
-## Step 2 — Check Architecture Fidelity
+* redesign the system
+* expand scope
+* implement P1 functionality
+* perform broad refactoring
+* fix purely stylistic issues
 
-Compare the code against `DESIGN.md`.
-
-Look for:
-
-* architecture drift
-* missing components
-* incorrect control flow
-* implicit state that should be explicit
-* LLM decisions that should be deterministic
-* deterministic logic incorrectly delegated to the LLM
-* tool contracts that differ from the design
-
-## Step 3 — Check Implementation Quality
-
-Review for:
-
-* incorrect assumptions
-* brittle logic
-* missing error handling
-* unsafe side effects
-* malformed LLM output handling
-* unbounded loops or retries
-* missing stopping conditions
-* idempotency issues
-* duplicate actions
-* dead code
-* unnecessary complexity
-* hidden dependencies
-
-## Step 4 — Check Tool Boundaries
-
-For important tools verify:
-
-* inputs are validated
-* outputs are checked
-* failures are handled
-* side effects are understood
-* retries are safe
-* success is not assumed without verification
-
-## Step 5 — Check Tests
-
-Determine whether tests cover the critical P0 behavior.
-
-Identify missing tests for:
-
-* happy path
-* failure path
-* edge cases
-* repeated execution
-* critical deterministic gates
-
-Do not generate a large test suite yet.
-
-## Step 6 — Prioritize Findings
-
-Group findings into:
-
-### Blockers
-
-Must be fixed before evaluation.
-
-### Important
-
-Should be fixed if time allows.
-
-### Nice to Have
-
-Non-critical improvements.
-
-For each finding include:
-
-* issue
-* evidence
-* why it matters
-* smallest recommended fix
-
-## Step 7 — Readiness Decision
-
-End with one of:
-
-* READY FOR EVALUATION
-* FIX BLOCKERS FIRST
-
-Explain the decision briefly.
+If review reveals a problem requiring a design or architecture change, stop and return the issue to the appropriate earlier stage.
 
 ## Output
 
-Create `REVIEW.md`.
-
-If blockers exist, fix only the blockers and rerun the relevant tests before declaring readiness.
-
-Do not proceed to broader evaluation until blockers are resolved.
+Create `REVIEW.md
