@@ -2,9 +2,9 @@
 
 ## Purpose
 
-Implement an approved `IMPLEMENTATION_PLAN.md` as a working end-to-end system while preserving the approved design.
+Implement an approved `IMPLEMENTATION_PLAN.md` as a working P0 vertical slice.
 
-The goal is to execute the plan incrementally, verify progress continuously, and reach a working P0 vertical slice before adding optional functionality.
+The goal is to make steady progress, verify the critical path, and hand off quickly to Review rather than exhaustively proving correctness during Build.
 
 ## Input
 
@@ -18,7 +18,7 @@ Do not reinterpret the original challenge or redesign the system.
 
 ### 1. Start With P0
 
-Implement only P0 work until the end-to-end vertical slice works.
+Implement only P0 work until the vertical slice exists.
 
 Do not begin P1 work early.
 
@@ -30,10 +30,10 @@ For each implementation step:
 
 1. Read the step objective.
 2. Make the smallest code change required.
-3. Run the verification defined in the plan.
+3. Run the smallest useful verification.
 4. Inspect the actual result.
 5. Fix blocking failures.
-6. Confirm the step works before continuing.
+6. Continue once the step is sufficiently demonstrated.
 
 Avoid implementing several major components before running anything.
 
@@ -41,17 +41,16 @@ Avoid implementing several major components before running anything.
 
 ### 3. Preserve Design Contracts
 
-Respect:
+Respect the approved:
 
-* component responsibilities
 * interfaces
-* state ownership
 * control flow
-* LLM / deterministic boundaries
-* safety gates
+* state ownership
+* component responsibilities
+* deterministic gates
 * stopping conditions
 
-If implementation requires changing one of these, stop and surface the conflict.
+If implementation requires changing these, stop and surface the conflict.
 
 Do not silently redesign.
 
@@ -63,31 +62,31 @@ Prefer:
 
 * structured inputs
 * structured outputs
-* clear error results
+* explicit errors
 * explicit state transitions
 
-Avoid relying on hidden conversational state when program state is required.
+Avoid hidden dependence on conversational context when program state is required.
 
 ---
 
-### 5. Validate External Actions
+### 5. Validate External Actions Minimally but Safely
 
 For side-effecting tools:
 
-* inspect results
-* verify success
-* handle errors
-* avoid duplicate execution when retries occur
+* inspect the returned result
+* detect obvious failure
+* avoid duplicate execution during retries
+* verify critical preconditions before acting
 
-Do not assume a tool call succeeded merely because it returned.
+Do not attempt exhaustive side-effect validation during Build.
+
+Deeper correctness checks belong in Review.
 
 ---
 
 ### 6. Keep the Code Simple
 
-For interview-oriented implementations:
-
-Prefer:
+For interview-oriented implementations prefer:
 
 * small modules
 * explicit control flow
@@ -107,28 +106,62 @@ The implementation should be easy to explain.
 
 ---
 
-### 7. Test Critical Paths Early
+### 7. Use Smoke Verification
 
-At minimum validate:
+During Build, verify enough to establish that the P0 path executes.
 
-* normal end-to-end path
+Prioritize:
+
+* one happy-path end-to-end run
 * critical deterministic gates
-* important tool failure behavior
-* termination behavior
+* obvious runtime failures
+* basic termination behavior
 
-Do not wait until the entire implementation is complete before testing.
+Do not spend significant time on:
+
+* broad regression testing
+* exhaustive edge cases
+* adversarial testing
+* full failure injection
+* comprehensive coverage
+
+Those belong to later stages.
 
 ---
 
-### 8. Stop at P0
+### 8. Handle Slow or Blocked Verification
 
-Once the P0 vertical slice works:
+If verification is:
 
-* rerun the end-to-end path
+* slow
+* flaky
+* blocked by authentication
+* blocked by an external dependency
+* expensive
+* incomplete
+
+do not stall indefinitely.
+
+Record:
+
+* what was verified
+* what remains unverified
+* why verification stopped
+
+Then hand off to Review.
+
+---
+
+### 9. Stop at P0
+
+Once the vertical slice is implemented and smoke-tested:
+
+* stop adding features
 * record known limitations
-* identify incomplete P1 work
+* record P1 work not completed
+* create `BUILD_SUMMARY.md`
 
-Do not automatically continue adding features.
+Do not continue polishing automatically.
 
 ## Guardrails
 
@@ -138,31 +171,36 @@ Do not:
 * modify the design silently
 * expand scope
 * implement P1 before P0 works
-* accept generated code without running it
-* hide failing tests
+* accept generated code without running any verification
+* hide failures
 * replace broken behavior with hard-coded demo outputs
+* let exhaustive verification consume the majority of Build time
 
-If upstream artifacts are inconsistent with implementation reality, surface the problem rather than silently working around it.
+If upstream artifacts conflict with implementation reality, surface the issue rather than working around it silently.
 
 ## Completion Criteria
 
 Build is complete when:
 
-* the P0 vertical slice runs end to end
-* critical deterministic checks work
-* expected outputs are produced
-* blocking runtime failures are resolved
-* known limitations are documented
+* the P0 implementation exists
+* the main execution path can be exercised
+* at least one focused smoke verification has been attempted
+* blocking runtime issues are either fixed or documented
+* known limitations are recorded
+
+Build does **not** require exhaustive correctness proof.
 
 ## Output
 
 Produce:
 
-* working implementation
-* relevant tests
+* P0 implementation
+* only the focused tests needed for smoke verification
 * `BUILD_SUMMARY.md`
 
-`BUILD_SUMMARY.md` should contain:
+`BUILD_SUMMARY.md` must be created even if verification is incomplete.
+
+It should contain:
 
 # Build Summary
 
@@ -170,13 +208,15 @@ Produce:
 
 ## Verified
 
+## Verification Incomplete
+
 ## Known Limitations
 
 ## P1 Not Implemented
 
 ## Deviations From Plan
 
-If there were no deviations:
+If none:
 
 `None`
 
